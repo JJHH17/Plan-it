@@ -8,3 +8,7 @@
 
 ```Installation steps and instructions```
 
+```Testing```
+
+- Junit is used for Testing this application
+- You will find JUnit installed and added under the "Lib" folder in this project
