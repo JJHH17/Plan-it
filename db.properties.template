@@ -1,0 +1,5 @@
+Example of Database properties, used for credentials
+
+db.url=jdbc:postgresql://localhost:5432/ContactManager (Change to the correct route)
+db.username=your_username
+db.password=your_password
