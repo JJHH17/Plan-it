@@ -1,4 +1,4 @@
-Example of Database properties, used for credentials
+Example of Database properties, used for credentials - add to db.properties file (when added to project root)
 
 db.url=jdbc:postgresql://localhost:5432/ContactManager (Change to the correct route)
 db.username=your_username
