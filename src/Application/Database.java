@@ -29,7 +29,7 @@ public class Database {
     }
 
     // Used to create a table and input SQL as input
-    public void tableCreation(String sql) {
+    public void tableCreationHelper(String sql) {
         // Establishes connection with database
         try {
             Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
