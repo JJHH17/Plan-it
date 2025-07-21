@@ -43,4 +43,16 @@ public class Database {
             e.printStackTrace();
         }
     }
+
+    // Used to actually create the table and the relevant fields
+    public void createToDoTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS ToDo (" +
+                "Task_ID SERIAL PRIMARY KEY, " +
+                "Task varchar(50) NOT NULL, " +
+                "Description varchar(50) NOT NULL, " +
+                "Complete bool NOT NULL, " +
+                "Priority int NOT NULL);";
+
+        tableCreationHelper(sql);
+    }
 }
