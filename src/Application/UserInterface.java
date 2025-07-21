@@ -20,7 +20,8 @@ public class UserInterface {
             System.out.println("What would you like to do?");
             System.out.println("1. Add a new task");
             System.out.println("2. View all tasks");
-            System.out.println("3. Exit");
+            System.out.println("3. Delete a Task (By Task ID)");
+            System.out.println("4. Exit");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -42,6 +43,12 @@ public class UserInterface {
                     break;
 
                 case 3:
+                    System.out.println("Please enter the task ID to delete");
+                    int taskId = Integer.parseInt(scanner.nextLine());
+                    db.deleteTask(taskId);
+                    break;
+
+                case 4:
                     active = false;
                     break;
             }
