@@ -84,12 +84,13 @@ public class Database {
             ResultSet result = prepared.executeQuery();
 
             while (result.next()) {
+                int taskId = result.getInt("Task_ID");
                 String task = result.getString("Task");
                 String description = result.getString("Description");
                 boolean isComplete = result.getBoolean("Complete");
                 int priority = result.getInt("Priority");
 
-                System.out.println("Task: " + task + " Description: " + description + " Priority: " + priority + " Complete: " + isComplete);
+                System.out.println("ID: " + taskId + " Task: " + task + " Description: " + description + " Priority: " + priority + " Complete: " + isComplete);
             }
 
         } catch (SQLException e) {
@@ -97,4 +98,6 @@ public class Database {
             e.printStackTrace();
         }
     }
+
+
 }
