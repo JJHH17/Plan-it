@@ -9,6 +9,7 @@ public class UserInterface {
     public UserInterface() {
         this.scanner = new Scanner(System.in);
         this.db = new Database();
+        db.createToDoTable();
     }
 
     public void start() {
@@ -18,7 +19,8 @@ public class UserInterface {
         while (active) {
             System.out.println("What would you like to do?");
             System.out.println("1. Add a new task");
-            System.out.println("2. Exit");
+            System.out.println("2. View all tasks");
+            System.out.println("3. Exit");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -36,6 +38,10 @@ public class UserInterface {
                     break;
 
                 case 2:
+                    db.fetchTasks();
+                    break;
+
+                case 3:
                     active = false;
                     break;
             }
