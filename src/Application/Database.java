@@ -83,15 +83,13 @@ public class Database {
 
             ResultSet result = prepared.executeQuery();
 
-            if (result.next()) {
+            while (result.next()) {
                 String task = result.getString("Task");
                 String description = result.getString("Description");
                 boolean isComplete = result.getBoolean("Complete");
                 int priority = result.getInt("Priority");
 
                 System.out.println("Task: " + task + " Description: " + description + " Priority: " + priority + " Complete: " + isComplete);
-            } else {
-                System.out.println("No tasks found");
             }
 
         } catch (SQLException e) {
