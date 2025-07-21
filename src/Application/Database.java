@@ -7,7 +7,6 @@ import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
 public class Database {
-
     private String dbURL;
     private String dbUsername;
     private String dbPassword;
@@ -49,7 +48,7 @@ public class Database {
         String sql = "CREATE TABLE IF NOT EXISTS ToDo (" +
                 "Task_ID SERIAL PRIMARY KEY, " +
                 "Task varchar(50) NOT NULL, " +
-                "Description varchar(50) NOT NULL, " +
+                "Description varchar(100) NOT NULL, " +
                 "Complete bool NOT NULL, " +
                 "Priority int NOT NULL);";
 
