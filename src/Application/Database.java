@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 
 public class Database {
 
@@ -25,5 +26,21 @@ public class Database {
         this.dbURL = prop.getProperty("db.url");
         this.dbUsername = prop.getProperty("db.username");
         this.dbPassword = prop.getProperty("db.password");
+    }
+
+    // Used to create a table and input SQL as input
+    public void tableCreation(String sql) {
+        // Establishes connection with database
+        try {
+            Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+            System.out.println("Table created successfully");
+            connection.close();
+
+        } catch (Exception e) {
+            System.out.println("There was a problem creating the database table");
+            e.printStackTrace();
+        }
     }
 }
