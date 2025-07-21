@@ -55,4 +55,21 @@ public class Database {
 
         tableCreationHelper(sql);
     }
+
+    public void addTask(ToDo task) {
+        String sql = "INSERT INTO ToDo (Task, Description, Complete, Priority) VALUES (?, ?, ?, ?)";
+
+        try (Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+             PreparedStatement prepared = connection.prepareStatement(sql)) {
+
+            prepared.setString(1, task.getTask());
+            prepared.setString(2, task.getDescription());
+            prepared.setString(3, task.isComplete());
+            prepared.setString(4, task.getPriority());
+
+        } catch (SQLException e) {
+            System.out.println("There was an error adding the task to the database");
+            e.printStackTrace();
+        }
+    }
 }
