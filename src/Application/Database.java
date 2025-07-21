@@ -74,4 +74,29 @@ public class Database {
             e.printStackTrace();
         }
     }
+
+    public void fetchTasks() {
+        String sql = "SELECT * FROM todo";
+
+        try (Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+             PreparedStatement prepared = connection.prepareStatement(sql)) {
+
+            ResultSet result = prepared.executeQuery();
+
+            if (result.next()) {
+                String task = result.getString("Task");
+                String description = result.getString("Description");
+                boolean isComplete = result.getBoolean("Complete");
+                int priority = result.getInt("Priority");
+
+                System.out.println("Task: " + task + " Description: " + description + " Priority: " + priority + " Complete: " + isComplete);
+            } else {
+                System.out.println("No tasks found");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("There was an error fetching tasks from the database");
+            e.printStackTrace();
+        }
+    }
 }
