@@ -99,5 +99,24 @@ public class Database {
         }
     }
 
+    // Deletes task based on given task ID
+    public void deleteTask(int taskId) {
+        String sql = "DELETE FROM todo WHERE Task_ID = ?";
 
+        try (Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+             PreparedStatement prepared = connection.prepareStatement(sql)) {
+
+            prepared.setInt(1, taskId);
+            int rowsDeleted = prepared.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Task deleted successfully");
+            } else {
+                System.out.println("Task with ID: " + taskId + " not found");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("There was an error deleting the task from the database");
+            e.printStackTrace();
+        }
+    }
 }
