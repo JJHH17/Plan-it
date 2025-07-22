@@ -139,4 +139,23 @@ public class Database {
             e.printStackTrace();
         }
     }
+
+    public void deleteAllTasks() {
+        String sql = "DELETE FROM todo;";
+
+        try (Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+             PreparedStatement prepared = connection.prepareStatement(sql)) {
+
+            int rowsDelete = prepared.executeUpdate();
+            if (rowsDelete > 0) {
+                System.out.println("All tasks deleted successfully");
+            } else {
+                System.out.println("No tasks found");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("There was an error deleting the tasks from the database");
+            e.printStackTrace();
+        }
+    }
 }
