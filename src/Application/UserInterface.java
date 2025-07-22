@@ -22,7 +22,8 @@ public class UserInterface {
             System.out.println("2. View all tasks");
             System.out.println("3. Delete a Task (By Task ID)");
             System.out.println("4. Delete a Task (By Task name)");
-            System.out.println("5. Exit");
+            System.out.println("5. Delete all items");
+            System.out.println("6. Exit");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -56,6 +57,16 @@ public class UserInterface {
                     break;
 
                 case 5:
+                    System.out.println("Are you sure you want to delete all tasks? (Y/N)");
+                    char response = scanner.nextLine().toLowerCase().charAt(0);
+                    if (response == 'y') {
+                        db.deleteAllTasks();
+                    } else {
+                        System.out.println("Operation cancelled");
+                    }
+                    break;
+
+                case 6:
                     active = false;
                     break;
             }
