@@ -21,7 +21,8 @@ public class UserInterface {
             System.out.println("1. Add a new task");
             System.out.println("2. View all tasks");
             System.out.println("3. Delete a Task (By Task ID)");
-            System.out.println("4. Exit");
+            System.out.println("4. Delete a Task (By Task name)");
+            System.out.println("5. Exit");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -49,6 +50,12 @@ public class UserInterface {
                     break;
 
                 case 4:
+                    System.out.println("Please enter the task name to delete");
+                    String taskNameToDelete = scanner.nextLine();
+                    db.deleteTask(taskNameToDelete);
+                    break;
+
+                case 5:
                     active = false;
                     break;
             }
