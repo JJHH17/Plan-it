@@ -34,6 +34,11 @@ public class Main extends Application {
             initialStage.getChildren().clear();
         });
 
+        viewTasks.setOnAction(e -> {
+            displayAllTasks(primaryStage);
+            initialStage.getChildren().clear();
+        });
+
         deleteTaskId.setOnAction(e -> {
             idDeleteTaskUI(primaryStage);
             initialStage.getChildren().clear();
@@ -158,6 +163,23 @@ public class Main extends Application {
         });
 
         cancelButton.setOnAction(e -> {
+            vbox.getChildren().clear();
+            selectOption(primaryStage);
+        });
+
+        Scene scene = new Scene(vbox, 300, 250);
+        primaryStage.setScene(scene);
+    }
+
+    public void displayAllTasks(Stage primaryStage) {
+        Label allTasks = new Label("Tasks:");
+        Label printTasks = new Label(db.fetchTasks());
+        Button returnButton = new Button("Back");
+
+        VBox vbox = new VBox(10);
+        vbox.getChildren().addAll(allTasks, printTasks, returnButton);
+
+        returnButton.setOnAction(e -> {
             vbox.getChildren().clear();
             selectOption(primaryStage);
         });
