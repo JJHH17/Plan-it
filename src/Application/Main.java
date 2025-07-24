@@ -1,13 +1,10 @@
 package Application;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -17,11 +14,28 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Todo: allow user to select what they wish to do on UI before presenting new scene
-        addTaskUI(primaryStage);
-
+        selectOption(primaryStage);
 
         primaryStage.setTitle("Plan-It");
         primaryStage.show();
+    }
+
+    public void selectOption(Stage primaryStage) {
+        Button addTask = new Button("Add Task");
+        Button viewTasks = new Button("View Tasks");
+        Button deleteTask = new Button("Delete Task");
+        Button deleteAllTasks = new Button("Delete All Tasks");
+
+        VBox initialStage = new VBox(10);
+        initialStage.getChildren().addAll(addTask, viewTasks, deleteTask, deleteAllTasks);
+
+        addTask.setOnAction(e -> {
+            addTaskUI(primaryStage);
+            initialStage.getChildren().clear();
+        });
+
+        Scene scene = new Scene(initialStage, 300, 250);
+        primaryStage.setScene(scene);
     }
 
     public void addTaskUI(Stage primaryStage) {
