@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
-import java.util.concurrent.ExecutionException;
+import java.util.ArrayList;
 
 public class Database {
     private String dbURL;
@@ -75,7 +75,8 @@ public class Database {
         }
     }
 
-    public void fetchTasks() {
+    public ArrayList<String> fetchTasks() {
+        ArrayList<String> response = new ArrayList<>();
         String sql = "SELECT * FROM todo";
 
         try (Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
@@ -90,13 +91,15 @@ public class Database {
                 boolean isComplete = result.getBoolean("Complete");
                 int priority = result.getInt("Priority");
 
-                System.out.println("ID: " + taskId + " Task: " + task + " Description: " + description + " Priority: " + priority + " Complete: " + isComplete);
+                response.add("ID: " + taskId + " Task: " + task + " Description: " + description + " Priority: " + priority + " Complete: " + isComplete);
             }
 
         } catch (SQLException e) {
             System.out.println("There was an error fetching tasks from the database");
             e.printStackTrace();
         }
+
+        return response;
     }
 
     // Deletes task based on given task ID
