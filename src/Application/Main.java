@@ -24,10 +24,11 @@ public class Main extends Application {
         Button addTask = new Button("Add Task");
         Button viewTasks = new Button("View Tasks");
         Button deleteTaskId = new Button("Delete Task (By Task ID)");
+        Button deleteTaskName = new Button("Delete Task (By Task name)");
         Button deleteAllTasks = new Button("Delete All Tasks");
 
         VBox initialStage = new VBox(10);
-        initialStage.getChildren().addAll(addTask, viewTasks, deleteTaskId, deleteAllTasks);
+        initialStage.getChildren().addAll(addTask, viewTasks, deleteTaskId, deleteTaskName);
 
         addTask.setOnAction(e -> {
             addTaskUI(primaryStage);
@@ -36,6 +37,11 @@ public class Main extends Application {
 
         deleteTaskId.setOnAction(e -> {
             idDeleteTaskUI(primaryStage);
+            initialStage.getChildren().clear();
+        });
+
+        deleteTaskName.setOnAction(e -> {
+            nameDeleteTaskUI(primaryStage);
             initialStage.getChildren().clear();
         });
 
@@ -92,6 +98,32 @@ public class Main extends Application {
         deleteButton.setOnAction(e -> {
             int id = Integer.parseInt(idField.getText());
             db.deleteTask(id);
+            vbox.getChildren().clear();
+            selectOption(primaryStage);
+        });
+
+        cancelButton.setOnAction(e -> {
+            vbox.getChildren().clear();
+            selectOption(primaryStage);
+        });
+
+        Scene scene = new Scene(vbox, 300, 250);
+        primaryStage.setScene(scene);
+    }
+
+    public void nameDeleteTaskUI(Stage primaryStage) {
+        Label nameLabel = new Label("Delete a Task (By Task name)");
+        Label deleteLabel = new Label("Please enter the task name to delete");
+        TextField nameField = new TextField();
+        Button deleteButton = new Button("Delete");
+        Button cancelButton = new Button("Back");
+
+        VBox vbox = new VBox(10);
+        vbox.getChildren().addAll(nameLabel, deleteLabel, nameField, deleteButton, cancelButton);
+
+        deleteButton.setOnAction(e -> {
+            String name = nameField.getText();
+            db.deleteTask(name);
             vbox.getChildren().clear();
             selectOption(primaryStage);
         });
