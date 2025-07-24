@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import java.util.ArrayList;
 
 public class Main extends Application {
     private Database db = new Database();
@@ -172,8 +173,15 @@ public class Main extends Application {
     }
 
     public void displayAllTasks(Stage primaryStage) {
+        // Using an arraylist to store DB entries
+        ArrayList<String> tasks = db.fetchTasks();
+
         Label allTasks = new Label("Tasks:");
-        Label printTasks = new Label(db.fetchTasks());
+        Label printTasks = new Label();
+        for (String task : tasks) {
+            printTasks.setText(printTasks.getText() + task + "\n");
+        }
+
         Button returnButton = new Button("Back");
 
         VBox vbox = new VBox(10);
