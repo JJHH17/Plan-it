@@ -23,14 +23,19 @@ public class Main extends Application {
     public void selectOption(Stage primaryStage) {
         Button addTask = new Button("Add Task");
         Button viewTasks = new Button("View Tasks");
-        Button deleteTask = new Button("Delete Task");
+        Button deleteTaskId = new Button("Delete Task (By Task ID)");
         Button deleteAllTasks = new Button("Delete All Tasks");
 
         VBox initialStage = new VBox(10);
-        initialStage.getChildren().addAll(addTask, viewTasks, deleteTask, deleteAllTasks);
+        initialStage.getChildren().addAll(addTask, viewTasks, deleteTaskId, deleteAllTasks);
 
         addTask.setOnAction(e -> {
             addTaskUI(primaryStage);
+            initialStage.getChildren().clear();
+        });
+
+        deleteTaskId.setOnAction(e -> {
+            idDeleteTaskUI(primaryStage);
             initialStage.getChildren().clear();
         });
 
@@ -67,6 +72,33 @@ public class Main extends Application {
             priorityField.clear();
             // Clears existing items in scene
             vbox.getChildren().clear();
+            selectOption(primaryStage);
+        });
+
+        Scene scene = new Scene(vbox, 300, 250);
+        primaryStage.setScene(scene);
+    }
+
+    public void idDeleteTaskUI(Stage primaryStage) {
+        Label idLabel = new Label("Delete a Task (By Task ID)");
+        Label deleteLabel = new Label("Please enter the task ID to delete");
+        TextField idField = new TextField();
+        Button deleteButton = new Button("Delete");
+        Button cancelButton = new Button("Back");
+
+        VBox vbox = new VBox(10);
+        vbox.getChildren().addAll(idLabel, deleteLabel, idField, deleteButton, cancelButton);
+
+        deleteButton.setOnAction(e -> {
+            int id = Integer.parseInt(idField.getText());
+            db.deleteTask(id);
+            vbox.getChildren().clear();
+            selectOption(primaryStage);
+        });
+
+        cancelButton.setOnAction(e -> {
+            vbox.getChildren().clear();
+            selectOption(primaryStage);
         });
 
         Scene scene = new Scene(vbox, 300, 250);
