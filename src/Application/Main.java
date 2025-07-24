@@ -13,7 +13,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // Todo: allow user to select what they wish to do on UI before presenting new scene
         selectOption(primaryStage);
 
         primaryStage.setTitle("Plan-It");
@@ -28,7 +27,7 @@ public class Main extends Application {
         Button deleteAllTasks = new Button("Delete All Tasks");
 
         VBox initialStage = new VBox(10);
-        initialStage.getChildren().addAll(addTask, viewTasks, deleteTaskId, deleteTaskName);
+        initialStage.getChildren().addAll(addTask, viewTasks, deleteTaskId, deleteTaskName, deleteAllTasks);
 
         addTask.setOnAction(e -> {
             addTaskUI(primaryStage);
@@ -45,11 +44,18 @@ public class Main extends Application {
             initialStage.getChildren().clear();
         });
 
+        deleteAllTasks.setOnAction(e -> {
+            deleteAllTasksUI(primaryStage);
+            initialStage.getChildren().clear();
+        });
+
         Scene scene = new Scene(initialStage, 300, 250);
         primaryStage.setScene(scene);
     }
 
     public void addTaskUI(Stage primaryStage) {
+        // TODO: Allow user to go back to initial stage from this page
+
         Label taskLabel = new Label("Task");
         TextField taskField = new TextField();
         Label descriptionLabel = new Label("Description");
@@ -124,6 +130,29 @@ public class Main extends Application {
         deleteButton.setOnAction(e -> {
             String name = nameField.getText();
             db.deleteTask(name);
+            vbox.getChildren().clear();
+            selectOption(primaryStage);
+        });
+
+        cancelButton.setOnAction(e -> {
+            vbox.getChildren().clear();
+            selectOption(primaryStage);
+        });
+
+        Scene scene = new Scene(vbox, 300, 250);
+        primaryStage.setScene(scene);
+    }
+
+    public void deleteAllTasksUI(Stage primaryStage) {
+        Label deleteAll = new Label("Are you sure you want to delete all tasks?");
+        Button confirmButton = new Button("Confirm");
+        Button cancelButton = new Button("Back");
+
+        VBox vbox = new VBox(10);
+        vbox.getChildren().addAll(deleteAll, confirmButton, cancelButton);
+
+        confirmButton.setOnAction(e -> {
+            db.deleteAllTasks();
             vbox.getChildren().clear();
             selectOption(primaryStage);
         });
