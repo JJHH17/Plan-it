@@ -16,6 +16,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        // Todo: allow user to select what they wish to do on UI before presenting new scene
         addTaskUI(primaryStage);
 
 
@@ -45,6 +46,13 @@ public class Main extends Application {
             // Feeds into DB function
             ToDo newToDo = new ToDo(task, description, priority);
             db.addTask(newToDo);
+
+            // Clears UI fields when submission is made
+            taskField.clear();
+            descriptionField.clear();
+            priorityField.clear();
+            // Clears existing items in scene
+            vbox.getChildren().clear();
         });
 
         Scene scene = new Scene(vbox, 300, 250);
