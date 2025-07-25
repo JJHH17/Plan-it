@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 
-public abstract class UserInterface extends Application {
+public class UserInterface extends Application {
     private Database db = new Database();
 
     @Override
