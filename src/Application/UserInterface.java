@@ -26,9 +26,10 @@ public class UserInterface extends Application {
         Button deleteTaskId = new Button("Delete Task (By Task ID)");
         Button deleteTaskName = new Button("Delete Task (By Task name)");
         Button deleteAllTasks = new Button("Delete All Tasks");
+        Button editTask = new Button("Edit Task");
 
         VBox initialStage = new VBox(10);
-        initialStage.getChildren().addAll(addTask, viewTasks, deleteTaskId, deleteTaskName, deleteAllTasks);
+        initialStage.getChildren().addAll(addTask, viewTasks, deleteTaskId, deleteTaskName, deleteAllTasks, editTask);
 
         addTask.setOnAction(e -> {
             addTaskUI(primaryStage);
@@ -52,6 +53,11 @@ public class UserInterface extends Application {
 
         deleteAllTasks.setOnAction(e -> {
             deleteAllTasksUI(primaryStage);
+            initialStage.getChildren().clear();
+        });
+
+        editTask.setOnAction(e -> {
+            editTask(primaryStage);
             initialStage.getChildren().clear();
         });
 
@@ -197,6 +203,43 @@ public class UserInterface extends Application {
         vbox.getChildren().addAll(allTasks, printTasks, returnButton);
 
         returnButton.setOnAction(e -> {
+            vbox.getChildren().clear();
+            selectOption(primaryStage);
+        });
+
+        Scene scene = new Scene(vbox, 300, 250);
+        primaryStage.setScene(scene);
+    }
+
+    /** Used to edit an existing task */
+    public void editTask(Stage primaryStage) {
+        Label title = new Label("Edit a Task (By Task ID)");
+        Label taskLabel = new Label("Task ID");
+        TextField taskField = new TextField();
+        Label descriptionLabel = new Label("Description");
+        TextField descriptionField = new TextField();
+        Label priorityLabel = new Label("Priority");
+        TextField priorityField = new TextField();
+        Label completeLabel = new Label("Complete");
+        TextField completeField = new TextField();
+        Button submitButton = new Button("Submit");
+        Button cancelButton = new Button("Back");
+
+        VBox vbox = new VBox(10);
+        vbox.getChildren().addAll(title, taskLabel, taskField, descriptionLabel, descriptionField, priorityLabel, priorityField,
+                completeLabel, completeField, submitButton, cancelButton);
+
+        submitButton.setOnAction(e -> {
+            int taskId = Integer.parseInt(taskField.getText());
+            String description = descriptionField.getText();
+            int priority = priorityField.getText().isEmpty() ? 0 : Integer.parseInt(priorityField.getText());
+            boolean complete = completeField.getText().isEmpty() ? false : Boolean.parseBoolean(completeField.getText());
+            db.editTask(taskId, description, priority, complete);
+            vbox.getChildren().clear();
+            selectOption(primaryStage);
+        });
+
+        cancelButton.setOnAction(e -> {
             vbox.getChildren().clear();
             selectOption(primaryStage);
         });
