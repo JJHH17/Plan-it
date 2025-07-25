@@ -39,7 +39,9 @@ public class ToDo {
         }
     }
 
-    public void changeDescription(String description) {
+    public void editTask(String description, int priority, boolean complete) {
         this.description = description;
+        this.priority = priority;
+        this.complete = complete;
     }
 }
