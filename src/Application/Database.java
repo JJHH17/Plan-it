@@ -161,4 +161,28 @@ public class Database {
             e.printStackTrace();
         }
     }
+
+    public void editTask(int taskId, String newDescription, int priority, boolean complete) {
+        String sql = "UPDATE todo SET Description = ?, Priority = ?, Complete = ? WHERE Task_ID = ?";
+
+        try (Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+             PreparedStatement prepared = connection.prepareStatement(sql)) {
+
+            prepared.setString(1, newDescription);
+            prepared.setInt(2, priority);
+            prepared.setBoolean(3, complete);
+            prepared.setInt(4, taskId);
+
+            int rowsUpdated = prepared.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Task updated successfully");
+            } else {
+                System.out.println("Task with ID: " + taskId + " not found");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("There was an error updating the task in the database");
+            e.printStackTrace();
+        }
+    }
 }
