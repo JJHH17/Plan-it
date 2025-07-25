@@ -38,4 +38,8 @@ public class ToDo {
             System.out.println("Please enter a valid value");
         }
     }
+
+    public void changeDescription(String description) {
+        this.description = description;
+    }
 }
