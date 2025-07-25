@@ -11,7 +11,7 @@ public class Database {
     private String dbUsername;
     private String dbPassword;
 
-    // Used to fetch database credentials from properties file
+    /** Used to fetch database credentials from properties file */
     public Database() {
         Properties prop = new Properties();
 
@@ -27,7 +27,7 @@ public class Database {
         this.dbPassword = prop.getProperty("db.password");
     }
 
-    // Used to create a table and input SQL as input
+    /** Used to create a table and input SQL as input */
     public void tableCreationHelper(String sql) {
         // Establishes connection with database
         try {
@@ -43,7 +43,7 @@ public class Database {
         }
     }
 
-    // Used to actually create the table and the relevant fields
+    /** Used to actually create the table and the relevant fields */
     public void createToDoTable() {
         String sql = "CREATE TABLE IF NOT EXISTS ToDo (" +
                 "Task_ID SERIAL PRIMARY KEY, " +
@@ -102,7 +102,7 @@ public class Database {
         return response;
     }
 
-    // Deletes task based on given task ID
+    /** Deletes task based on given task ID */
     public void deleteTask(int taskId) {
         String sql = "DELETE FROM todo WHERE Task_ID = ?";
 
@@ -123,6 +123,7 @@ public class Database {
         }
     }
 
+    /** Deletes task based on a given task name. Deletes all instances of that task name */
     public void deleteTask(String task) {
         String sql = "DELETE FROM todo WHERE Task = ?";
 
