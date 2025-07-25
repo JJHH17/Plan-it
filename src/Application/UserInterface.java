@@ -3,6 +3,7 @@ package Application;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -72,7 +73,11 @@ public class UserInterface extends Application {
         Label descriptionLabel = new Label("Description");
         TextField descriptionField = new TextField();
         Label priorityLabel = new Label("Priority");
-        TextField priorityField = new TextField();
+        // Creation of priority dropdown modal
+        ComboBox<Integer> priorityField = new ComboBox<>();
+        priorityField.getItems().addAll(1, 2, 3, 4, 5);
+        // Setting a default value
+        priorityField.setValue(5);
 
         Button submitToDo = new Button("Submit");
         Button cancelButton = new Button("Back");
@@ -84,19 +89,32 @@ public class UserInterface extends Application {
         submitToDo.setOnAction(e -> {
             String task = taskField.getText();
             String description = descriptionField.getText();
-            int priority = priorityField.getText().isEmpty() ? 0 : Integer.parseInt(priorityField.getText());
+            int priority = priorityField.getValue();
 
-            // Feeds into DB function
-            ToDo newToDo = new ToDo(task, description, priority);
-            db.addTask(newToDo);
+            // Data validation - else we push into the database if data is valid
+            if (task.isEmpty() || description.isEmpty()) {
+                Label errorLabel = new Label("Please enter a valid task and description");
+                vbox.getChildren().addAll(errorLabel);
+            } else if (task.length() > 50) {
+                Label errorLabel = new Label("Task name cannot be longer than 50 characters");
+                vbox.getChildren().addAll(errorLabel);
+            } else if (description.length() > 100) {
+                Label errorLabel = new Label("Description cannot be longer than 100 characters");
+                vbox.getChildren().addAll(errorLabel);
+            } else {
+                ToDo newToDo = new ToDo(task, description, priority);
+                db.addTask(newToDo);
+                Label successLabel = new Label("Task added successfully");
+                vbox.getChildren().addAll(successLabel);
 
-            // Clears UI fields when submission is made
-            taskField.clear();
-            descriptionField.clear();
-            priorityField.clear();
-            // Clears existing items in scene
-            vbox.getChildren().clear();
-            selectOption(primaryStage);
+                // Clears UI fields when submission is made
+                taskField.clear();
+                descriptionField.clear();
+
+                // Clears existing items in scene
+                vbox.getChildren().clear();
+                selectOption(primaryStage);
+            }
         });
 
         cancelButton.setOnAction(e -> {
