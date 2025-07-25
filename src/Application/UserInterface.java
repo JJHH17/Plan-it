@@ -69,9 +69,10 @@ public class UserInterface extends Application {
         TextField priorityField = new TextField();
 
         Button submitToDo = new Button("Submit");
+        Button cancelButton = new Button("Back");
 
         VBox vbox = new VBox(10);
-        vbox.getChildren().addAll(taskLabel, taskField, descriptionLabel, descriptionField, priorityLabel, priorityField, submitToDo);
+        vbox.getChildren().addAll(taskLabel, taskField, descriptionLabel, descriptionField, priorityLabel, priorityField, submitToDo, cancelButton);
 
         /** Handles submission button */
         submitToDo.setOnAction(e -> {
@@ -88,6 +89,11 @@ public class UserInterface extends Application {
             descriptionField.clear();
             priorityField.clear();
             // Clears existing items in scene
+            vbox.getChildren().clear();
+            selectOption(primaryStage);
+        });
+
+        cancelButton.setOnAction(e -> {
             vbox.getChildren().clear();
             selectOption(primaryStage);
         });
