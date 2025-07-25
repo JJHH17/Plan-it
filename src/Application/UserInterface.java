@@ -15,11 +15,11 @@ public class UserInterface extends Application {
     @Override
     public void start(Stage primaryStage) {
         selectOption(primaryStage);
-
         primaryStage.setTitle("Plan-It");
         primaryStage.show();
     }
 
+    /** Initial page of application, allows user to select what they want to do next */
     public void selectOption(Stage primaryStage) {
         Button addTask = new Button("Add Task");
         Button viewTasks = new Button("View Tasks");
@@ -59,9 +59,8 @@ public class UserInterface extends Application {
         primaryStage.setScene(scene);
     }
 
+    /** Allows user to add item to list */
     public void addTaskUI(Stage primaryStage) {
-        // TODO: Allow user to go back to initial stage from this page
-
         Label taskLabel = new Label("Task");
         TextField taskField = new TextField();
         Label descriptionLabel = new Label("Description");
@@ -71,10 +70,10 @@ public class UserInterface extends Application {
 
         Button submitToDo = new Button("Submit");
 
-        VBox vbox = new VBox(10); // 10 = spacing between the elements
+        VBox vbox = new VBox(10);
         vbox.getChildren().addAll(taskLabel, taskField, descriptionLabel, descriptionField, priorityLabel, priorityField, submitToDo);
 
-        // Handles submission button
+        /** Handles submission button */
         submitToDo.setOnAction(e -> {
             String task = taskField.getText();
             String description = descriptionField.getText();
@@ -97,6 +96,7 @@ public class UserInterface extends Application {
         primaryStage.setScene(scene);
     }
 
+    /** Handles deletion functionality */
     public void idDeleteTaskUI(Stage primaryStage) {
         Label idLabel = new Label("Delete a Task (By Task ID)");
         Label deleteLabel = new Label("Please enter the task ID to delete");
@@ -123,6 +123,7 @@ public class UserInterface extends Application {
         primaryStage.setScene(scene);
     }
 
+    /** Allows user to delete items based on the task name */
     public void nameDeleteTaskUI(Stage primaryStage) {
         Label nameLabel = new Label("Delete a Task (By Task name)");
         Label deleteLabel = new Label("Please enter the task name to delete");
@@ -149,6 +150,7 @@ public class UserInterface extends Application {
         primaryStage.setScene(scene);
     }
 
+    /** Allows user to delete all items */
     public void deleteAllTasksUI(Stage primaryStage) {
         Label deleteAll = new Label("Are you sure you want to delete all tasks?");
         Button confirmButton = new Button("Confirm");
@@ -172,6 +174,7 @@ public class UserInterface extends Application {
         primaryStage.setScene(scene);
     }
 
+    /** Displays all to do items */
     public void displayAllTasks(Stage primaryStage) {
         // Using an arraylist to store DB entries
         ArrayList<String> tasks = db.fetchTasks();
@@ -196,6 +199,7 @@ public class UserInterface extends Application {
         primaryStage.setScene(scene);
     }
 
+    /** Used to launch the application */
     public void launchApp() {
         launch();
     }
