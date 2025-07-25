@@ -138,10 +138,20 @@ public class UserInterface extends Application {
         vbox.getChildren().addAll(idLabel, deleteLabel, idField, deleteButton, cancelButton);
 
         deleteButton.setOnAction(e -> {
-            int id = Integer.parseInt(idField.getText());
-            db.deleteTask(id);
-            vbox.getChildren().clear();
-            selectOption(primaryStage);
+            // Handling invalid entries (expecting Integers)
+            try {
+                int id = Integer.parseInt(idField.getText());
+                db.deleteTask(id);
+                vbox.getChildren().clear();
+                selectOption(primaryStage);
+                Label successLabel = new Label("Action completed successfully");
+                vbox.getChildren().addAll(successLabel);
+                idField.clear();
+
+            } catch (NumberFormatException numberError) {
+                Label errorLabel = new Label("Please enter a valid task ID");
+                vbox.getChildren().addAll(errorLabel);
+            }
         });
 
         cancelButton.setOnAction(e -> {
