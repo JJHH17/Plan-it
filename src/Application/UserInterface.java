@@ -246,10 +246,20 @@ public class UserInterface extends Application {
         TextField taskField = new TextField();
         Label descriptionLabel = new Label("Description");
         TextField descriptionField = new TextField();
+
         Label priorityLabel = new Label("Priority");
-        TextField priorityField = new TextField();
-        Label completeLabel = new Label("Complete");
-        TextField completeField = new TextField();
+        // Creation of priority dropdown modal
+        ComboBox<Integer> priorityField = new ComboBox<>();
+        priorityField.getItems().addAll(1, 2, 3, 4, 5);
+        // Setting a default value
+        priorityField.setValue(5);
+
+        // Controls whether an item is completed or not
+        Label completeLabel = new Label("Completed?");
+        ComboBox<Boolean> completeField = new ComboBox<>();
+        completeField.getItems().addAll(true, false);
+        completeField.setValue(false);
+
         Button submitButton = new Button("Submit");
         Button cancelButton = new Button("Back");
 
@@ -260,8 +270,8 @@ public class UserInterface extends Application {
         submitButton.setOnAction(e -> {
             int taskId = Integer.parseInt(taskField.getText());
             String description = descriptionField.getText();
-            int priority = priorityField.getText().isEmpty() ? 0 : Integer.parseInt(priorityField.getText());
-            boolean complete = completeField.getText().isEmpty() ? false : Boolean.parseBoolean(completeField.getText());
+            int priority = priorityField.getValue();
+            boolean complete = completeField.getValue();
             db.editTask(taskId, description, priority, complete);
             vbox.getChildren().clear();
             selectOption(primaryStage);
