@@ -38,10 +38,4 @@ public class ToDo {
             System.out.println("Please enter a valid value");
         }
     }
-
-    public void editTask(String description, int priority, boolean complete) {
-        this.description = description;
-        this.priority = priority;
-        this.complete = complete;
-    }
 }
