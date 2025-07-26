@@ -39,3 +39,16 @@ From here, you'll be able to link and authenticate your local server (Once creat
 The code for authentication can be found in the Database.java class.
 
 ```Project Overview and what's possible```
+
+The application can be executed by running the Main.java class.
+
+Here's an example of how the application looks when executed:
+<img width="402" height="462" alt="image" src="https://github.com/user-attachments/assets/dca0bdbc-4c95-4d53-aad5-9d80fc79f95a" />
+
+From here, users can:
+- Add tasks.
+- View all tasks.
+- Delete tasks (based on their assigned task ID).
+- Delete tasks (based on their name - duplicate tasks will also be deleted if they have the same name).
+- Delete all tasks.
+- Edit existing tasks.
