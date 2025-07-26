@@ -43,6 +43,7 @@ The code for authentication can be found in the Database.java class.
 The application can be executed by running the Main.java class.
 
 Here's an example of how the application looks when executed:
+
 <img width="402" height="462" alt="image" src="https://github.com/user-attachments/assets/dca0bdbc-4c95-4d53-aad5-9d80fc79f95a" />
 
 From here, users can:
